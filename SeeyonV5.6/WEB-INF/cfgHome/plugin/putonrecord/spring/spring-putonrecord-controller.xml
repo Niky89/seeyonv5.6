@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans default-autowire="byName">
+	<bean name="/putonrecord/conflictofinterestcontroller.do"
+		class="com.seeyon.apps.putonrecord.controller.ConflictOfInterestController">
+		<property name="coimanager" ref="coimanager"></property>
+	</bean>
+	<bean name="/putonrecord/wechatplugin.do"
+		class="com.seeyon.apps.wechat.controller.PutOnRecordController">
+		
+	</bean>
+	<bean name="/putonrecord/wechatcheckrequest.do"
+		class="com.seeyon.apps.wechat.controller.CheckWeChatRequestController">
+		
+	</bean>
+
+	<bean name="/putonrecord/anjiancontroller.do"
+		class="com.seeyon.apps.putonrecord.controller.AnJianQueryController">
+		<property name="anjianmanager" ref="anjianmanager"></property>
+	</bean>
+	<bean name="/wechat/querydata.do"
+		class="com.seeyon.apps.wechat.controller.QueryPeapleController">
+		<property name="attachmentManager" ref="attachmentManager"></property>
+	</bean>
+	<bean name="/portal/topmessage.do"
+		class="com.seeyon.apps.portal.controller.TopMessageController">
+	</bean>
+</beans>

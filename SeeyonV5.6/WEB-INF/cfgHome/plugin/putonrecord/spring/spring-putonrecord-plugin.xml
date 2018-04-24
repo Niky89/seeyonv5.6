@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+<bean name="putonrecordDefinition" class="com.seeyon.apps.putonrecord.PutOnRecordDefinition">
+        <property name="sortOrder" >
+			<value>80002</value>
+		</property>
+</bean>
+<!-- 配置其他数据源访问连接 -->
+<bean id="dh2dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"       
+        destroy-method="close">      
+    <property name="driverClass" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>      
+    <property name="jdbcUrl" value="jdbc:sqlserver://192.168.1.175:1433;DatabaseName=dh2"/>      
+    <property name="user" value="sa"/>      
+    <property name="password" value="deheng@1993"/>      
+</bean>  
+
+</beans>

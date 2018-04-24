@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans default-autowire="byName">
+	<!-- 相当于service+dao -->
+	<bean id="coimanager"
+		class="com.seeyon.apps.putonrecord.manager.ConflictOfInterestManager">
+		<property name="coiDao" ref="coiDao"></property>
+	</bean>
+	<bean id="anjianmanager" class="com.seeyon.apps.putonrecord.manager.AnJianQueryManager">
+		<property name="anjianDao" ref="anjianDao"></property>
+	</bean>
+	<!-- 工具类管理类 -->
+	<bean id="utilmanager" class="com.deheng.utils.manager.UtilManager">
+	</bean>
+	<!-- 首页信息管理类 -->
+	<bean id="topMessageManager" class="com.seeyon.apps.portal.manager.TopMessageManager">
+	</bean>
+</beans>

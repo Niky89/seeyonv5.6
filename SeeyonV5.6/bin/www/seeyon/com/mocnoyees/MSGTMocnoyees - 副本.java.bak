@@ -1,0 +1,379 @@
+package www.seeyon.com.mocnoyees;
+
+import java.io.ByteArrayInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
+import java.util.Collection;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Properties;
+import java.util.Set;
+
+import org.apache.axis2.databinding.types.soapencoding.Integer;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import www.seeyon.com.utils.Base64Util;
+import www.seeyon.com.utils.DateUtil;
+import www.seeyon.com.utils.FileUtil;
+import www.seeyon.com.utils.LoggerUtil;
+import www.seeyon.com.utils.MacAddressUtil;
+import www.seeyon.com.utils.StringUtil;
+import www.seeyon.com.utils.XMLUtil;
+
+public class MSGTMocnoyees extends LinkedHashMap {
+	private static final long serialVersionUID = 2762981159058645565L;
+	private static final String _$2 = "ISO8859-1";
+	private static final String _$1 = "UTF-8";
+
+	public MSGTMocnoyees(LRWMMocnoyees paramLRWMMocnoyees) throws DogException {
+		String str1 = paramLRWMMocnoyees.lrwmmocnoyeesb();
+		String str2 = paramLRWMMocnoyees.lrwmmocnoyeesc();
+		if ((str2 == null) || (str2.length() == 0)) {
+			throw new DogException(Enums.ErrorCode.error_1013.getError());
+		}
+		str2 = RSMocnoyees.getModules(str2);
+		str1 = _$1(str1, str2);
+		_$20(str1);
+		checkLicense();
+	}
+
+	public MSGTMocnoyees(String paramString) throws DogException {
+		_$20(paramString);
+		checkLicense();
+	}
+
+	public void checkLicense() throws DogException {
+//		String str1 = _$8("");
+//		if ((str1 != null) && (str1.length() > 0) && (!str1.equals("0")) && (!str1.equals("1"))) {
+//			try {
+//				if (false) {
+//					System.out.println(Enums.ErrorCode.error_3001.getError());
+//					stop();
+//					throw new DogException(Enums.ErrorCode.error_3001.getError());
+//				}
+//			} catch (Exception localException) {
+//				throw new DogException(Enums.ErrorCode.error_1014.getError());
+//			}
+//		}
+//		String str2 = _$12("");
+//		if ((str2 != null) && (str2.length() > 0) && (!str2.equals("-1"))) {
+//			Date localObject = DateUtil.toDate(str2, "yyyy-MM-dd");
+//			Date localDate = new Date();
+//			if (localDate.after((Date) localObject)) {
+//				System.out.println(Enums.ErrorCode.error_3005.getError() + str2);
+//				stop();
+//				throw new DogException(Enums.ErrorCode.error_3005.getError());
+//			}
+//		}
+//		Object localObject = _$7("");
+//		if ((localObject != null) && (((String) localObject).length() > 0) && (((String) localObject).equals("1"))) {
+//			System.out.println(Enums.ErrorCode.error_3007.getError());
+//			stop();
+//			throw new DogException(Enums.ErrorCode.error_3007.getError());
+//		}
+	}
+
+	public static void stop() {
+
+	}
+
+	static String _$1(String paramString1, String paramString2) throws DogException {
+		return RSMocnoyees._$1(paramString1, paramString2);
+	}
+
+	private void _$20(String paramString) throws DogException {
+		if ((paramString == null) || (paramString.trim().length() == 0)) {
+			LoggerUtil.print("dogMessage为空！");
+			throw new RuntimeException("dogMessage为空！");
+		}
+		String str1 = ",AH:";
+		int i = paramString.indexOf(str1);
+		int j = paramString.indexOf(",", i + str1.length());
+		String str2 = null;
+		String str3 = null;
+		if (j == -1) {
+			str2 = paramString;
+		} else {
+			str2 = paramString.substring(0, j);
+			str3 = paramString.substring(j + 1);
+		}
+		String[] arrayOfString1 = str2.split(",");
+		Object[] localObject1;
+		Object localObject2;
+		for (String str4 : arrayOfString1) {
+			localObject1 = str4.split(":");
+			localObject2 = localObject1[0];
+			if (localObject1.length == 1) {
+				put(localObject2, "");
+			} else {
+				if(localObject2.equals("AG")){
+					put(localObject2,"5" );
+					continue; 
+				}
+				put(localObject2, localObject1[1]);
+			}
+			System.out.println(localObject2+"--1----"+localObject1[1]+"xxxxx>>"+localObject1[1].getClass().getName());
+		}
+		if (str3 != null) {
+			String[] tstr = str3.split(",");
+			for (String localObject11 : tstr) {
+				String[] localObject21 = ((String) localObject11).split(":");
+				Object localObject3 = localObject21[0];
+				Object localObject4 = localObject21[1];
+				put(localObject3, localObject4);
+				System.out.println(localObject3+"---2---"+localObject4);
+			}
+		}
+	}
+
+	public String showMessage(String paramString) {
+		String str1 = "";
+		try {
+			String str2 = FileUtil.readTextFile(paramString);
+			Properties localProperties = StringUtil.getProperties(str2);
+			str1 = showMessage(localProperties);
+		} catch (Exception localException) {
+			localException.printStackTrace();
+		}
+		return str1;
+	}
+
+	public String showMessage(Properties paramProperties) {
+		StringBuffer localStringBuffer1 = new StringBuffer();
+		StringBuffer localStringBuffer2 = new StringBuffer();
+		try {
+			Set localSet = keySet();
+			Iterator localIterator = localSet.iterator();
+			for (;;) {
+				if (localIterator.hasNext()) {
+					String str1 = (String) localIterator.next();
+					String str2 = (String) get(str1);
+					String str3;
+					String str4;
+					String str5;
+					if (str1.startsWith("A")) {
+						str3 = paramProperties.getProperty(str1);
+						localStringBuffer1.append(str3 + ":");
+						if ((str1.equals("AF")) || (str1.equals("AO"))) {
+							str4 = paramProperties.getProperty(str2);
+							localStringBuffer1.append(str4);
+						} else if ((str2 == null) || (str2.trim().length() == 0)) {
+							localStringBuffer1.append("");
+						} else {
+							str4 = paramProperties.getProperty(str1 + str2);
+							if ((str4 != null) && (str4.length() > 0)) {
+								str5 = str4;
+								if ((str5 == null) || (str5.trim().length() == 0)) {
+									localStringBuffer1.append(str2);
+								} else {
+									localStringBuffer1.append(str5);
+								}
+							} else {
+								localStringBuffer1.append(str2);
+							}
+						}
+						localStringBuffer1.append(System.getProperty("line.separator"));
+					} else if (str1.startsWith("B")) {
+						str3 = paramProperties.getProperty(str1);
+						if ((str2.length() >= 6) && (str2.startsWith("base64"))) {
+							str2 = str2.substring(6);
+							str2 = Base64Util.decode(str2);
+						}
+						localStringBuffer1.append(str3 + ":" + str2);
+					} else {
+						str3 = _$17("productLine");
+						str4 = paramProperties.getProperty(str3 + "-" + str1);
+						str5 = str4;
+						if (!str2.startsWith("-")) {
+							localStringBuffer2.append("模块/插件名称:").append(str5);
+							localStringBuffer2.append(System.getProperty("line.separator"));
+							if (!str2.equals("1")) {
+								ByteArrayInputStream localByteArrayInputStream = null;
+								try {
+									localByteArrayInputStream = new ByteArrayInputStream(str2.getBytes("UTF-8"));
+									Document localDocument = XMLUtil.getXMLDocument(localByteArrayInputStream);
+									Element localElement1 = localDocument.getDocumentElement();
+									NodeList localNodeList = localElement1.getChildNodes();
+									for (int i = 0; i < localNodeList.getLength(); i++) {
+										Node localNode = localNodeList.item(i);
+										if ((localNode instanceof Element)) {
+											Element localElement2 = (Element) localNode;
+											Element localElement3 = (Element) localElement2.getElementsByTagName("key")
+													.item(0);
+											Element localElement4 = (Element) localElement2
+													.getElementsByTagName("value").item(0);
+											String str6 = XMLUtil.getNodeText(localElement3);
+											String str7 = XMLUtil.getNodeText(localElement4);
+											String str8 = paramProperties.getProperty(str6);
+											String str9 = str8;
+											localStringBuffer2.append(str9).append(":").append(str7);
+											localStringBuffer2.append(System.getProperty("line.separator"));
+										}
+									}
+									if (localByteArrayInputStream != null) {
+										try {
+											localByteArrayInputStream.close();
+										} catch (IOException localIOException2) {
+											LoggerUtil.printException(localIOException2);
+											throw localIOException2;
+										}
+									}
+								} catch (UnsupportedEncodingException localUnsupportedEncodingException) {
+									LoggerUtil.printException(localUnsupportedEncodingException);
+									throw localUnsupportedEncodingException;
+								} catch (Exception localException) {
+									LoggerUtil.print(localException.toString());
+									throw new RuntimeException(localException);
+								} finally {
+									if (localByteArrayInputStream != null) {
+										try {
+											localByteArrayInputStream.close();
+										} catch (IOException localIOException3) {
+											LoggerUtil.printException(localIOException3);
+											throw localIOException3;
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		} catch (FileNotFoundException localFileNotFoundException) {
+			LoggerUtil.printException(localFileNotFoundException);
+			throw new RuntimeException(localFileNotFoundException);
+		} catch (IOException localIOException1) {
+			LoggerUtil.printException(localIOException1);
+			throw new RuntimeException(localIOException1);
+		}
+		//return localStringBuffer1 + System.getProperty("line.separator") + localStringBuffer2;
+	}
+
+	String _$1(byte[] paramArrayOfByte) {
+		String str1 = new String(paramArrayOfByte);
+		String str2 = (String) super.get(str1);
+		if ((str2 != null) && (str2.length() >= 6) && (str2.startsWith("base64"))) {
+			str2 = str2.substring(6);
+			str2 = Base64Util.decode(str2);
+		}
+		return str2;
+	}
+
+	String _$19(String paramString) {
+		byte[] arrayOfByte = { 65, 67 };
+		return _$1(arrayOfByte);
+	}
+
+	String _$18(String paramString) {
+		byte[] arrayOfByte = { 65, 66 };
+		return _$1(arrayOfByte);
+	}
+
+	String _$17(String paramString) {
+		byte[] arrayOfByte = { 65, 68 };
+		return _$1(arrayOfByte);
+	}
+
+	String _$16(String paramString) {
+		byte[] arrayOfByte = { 65, 70 };
+		return _$1(arrayOfByte);
+	}
+
+	String _$15(String paramString) {
+		byte[] arrayOfByte = { 65, 69 };
+		return _$1(arrayOfByte);
+	}
+
+	String _$14(String paramString) {
+		byte[] arrayOfByte = { 65, 79 };
+		return _$1(arrayOfByte);
+	}
+
+	String _$13(String paramString) {
+		byte[] arrayOfByte = { 65, 80 };
+		return _$1(arrayOfByte);
+	}
+
+	String _$12(String paramString) {
+		byte[] arrayOfByte = { 65, 72 };
+		return _$1(arrayOfByte);
+	}
+
+	String _$11(String paramString) {
+		byte[] arrayOfByte = { 65, 73 };
+		return _$1(arrayOfByte);
+	}
+
+	String _$10(String paramString) {
+		byte[] arrayOfByte = { 65, 71 };
+		String str1 = _$1(arrayOfByte);
+		String str2 = String.valueOf(Enums.UserTypeEnum.internal.getKey());
+		if (_$19("").equals(str2)) {
+			str1 = "10";
+		}
+		return str1;
+	}
+
+	String _$9(String paramString) {
+		byte[] arrayOfByte = { 65, 65 };
+		return _$1(arrayOfByte);
+	}
+
+	String _$8(String paramString) {
+		byte[] arrayOfByte = { 65, 74 };
+		return _$1(arrayOfByte);
+	}
+
+	String _$7(String paramString) {
+		byte[] arrayOfByte = { 65, 77 };
+		return _$1(arrayOfByte);
+	}
+
+	String _$6(String paramString) {
+		byte[] arrayOfByte = { 65, 76 };
+		return _$1(arrayOfByte);
+	}
+
+	String _$5(String paramString) {
+		byte[] arrayOfByte = { 65, 75 };
+		return _$1(arrayOfByte);
+	}
+
+	String _$4(String paramString) {
+		byte[] arrayOfByte = { 66, 65 };
+		return _$1(arrayOfByte);
+	}
+
+	String _$3(String paramString) {
+		byte[] arrayOfByte = { 65, 82 };
+		return _$1(arrayOfByte) == null ? "0" : _$1(arrayOfByte);
+	}
+
+	String _$2(String paramString) {
+		byte[] arrayOfByte = paramString.getBytes();
+		return _$1(arrayOfByte);
+	}
+
+	boolean _$1(String paramString) {
+		String str1 = String.valueOf(Enums.UserTypeEnum.internal.getKey());
+		if (_$19("").equals(str1)) {
+			return true;
+		}
+		boolean bool = false;
+		byte[] arrayOfByte = paramString.getBytes();
+		String str2 = _$1(arrayOfByte);
+		if ((str2 != null) && (str2.length() > 0)) {
+			str2 = str2.startsWith("-") ? str2.substring(1).trim() : str2;
+			if ((str2 != null) && (str2.length() > 0) && (!str2.equals("0"))) {
+				bool = true;
+			}
+		}
+		return bool;
+	}
+}

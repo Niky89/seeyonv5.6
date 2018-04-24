@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans default-autowire="byName">
+<!-- 相当于service+dao -->
+	<bean id="coiDao" class="com.seeyon.apps.putonrecord.dao.ConflictOfInterestDao">
+    </bean>
+    <bean id="anjianDao" class="com.seeyon.apps.putonrecord.dao.AnJianDao">
+    </bean>
+</beans>

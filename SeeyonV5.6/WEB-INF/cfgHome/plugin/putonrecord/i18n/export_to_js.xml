@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<export>
+    <!-- 案件信息 -->
+    <resKey>lawfirm.menu.kind.label</resKey>
+    <resKey>lawfirm.menu.givenPerson.label</resKey>
+    <resKey>lawfirm.menu.state.label</resKey>
+    <resKey>lawfirm.menu.office.label</resKey>
+    <resKey>lawfirm.menu.otherPerson.label</resKey>
+    <!--工作日志  -->
+    <resKey>lawfirm.menu.journalkind.label</resKey>
+    <resKey>lawfirm.menu.writeperson.label</resKey>
+    <resKey>lawfirm.menu.lawname.label</resKey>
+    <resKey>lawfirm.menu.customername.label</resKey>
+    <resKey>lawfirm.menu.worktime.label</resKey>
+    <resKey>lawfirm.menu.description.label</resKey>
+    
+    <!-- 表单操作 -->
+    <resKey>form.formlist.newform</resKey>
+    <resKey>application.92.label</resKey>
+    <resKey>application.94.label</resKey>
+    <resKey>form.query.lockedstatus.label</resKey>
+    <resKey>form.query.unlock.label</resKey>
+    <resKey>form.formmasterdatalist.inportexport</resKey>
+    <resKey>form.query.transmitexcel.label</resKey>
+    <resKey>form.formlist.downinfopath</resKey>
+    <resKey>application.95.label</resKey>
+    <resKey>form.print.printbutton</resKey>
+    <resKey>log.record.view.label</resKey>
+    <resKey>log.record.all.label</resKey>
+    <resKey>form.forminputchoose.search</resKey>
+    <resKey>form.report.statbutton</resKey>
+    
+    
+    <resKey>form.formlist.pleasechooseone</resKey>
+    <resKey>form.formmasterdatalist.canonlychooseonetoedit</resKey>
+    <resKey>form.formmasterdatalist.noeditauth</resKey>
+    <resKey>form.formmasterdatalist.deletecantedit</resKey>
+    <resKey>form.formmasterdatalist.lockeddatacantedit</resKey>
+    <resKey>form.formmasterdatalist.chooseeditauth</resKey>
+    <resKey>common.button.ok.label</resKey>
+    <resKey>form.formmasterdatalist.chooseauthfirst</resKey>
+    <resKey>common.toolbar.cancelmt.label</resKey>
+    <resKey>form.formmasterdatalist.notconfigrighteditauth</resKey>
+    
+   
+    <resKey>form.formlist.pleasechooseone</resKey>
+    <resKey>form.formmasterdatalist.suretodel</resKey>
+    <resKey>form.formmasterdatalist.belockedcantdel</resKey>
+    <resKey>form.formlist.delcategorysucess</resKey>
+    <resKey>form.formlist.delcategoryerror</resKey>
+    
+    <resKey>form.formmasterdatalist.belockedcantdel</resKey>
+</export>
