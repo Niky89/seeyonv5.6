@@ -297,7 +297,7 @@ public class LawDataListController extends BaseController {
 			throws Exception {
 		response.setContentType("text/html;charset=UTF-8");
 		ModelAndView view = new ModelAndView("plugin/lawfirm/journalLawDataList");
-		Map<String, Object> params = request.getParameterMap();
+		Map<String, String[]> params = request.getParameterMap();
 
 		Long formId = ParamUtil.getLong(params, "formId");
 		String lawCode = ReqUtil.getString(request, "lawCode");
@@ -727,7 +727,7 @@ public class LawDataListController extends BaseController {
 	public ModelAndView newUnFlowFormData(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		response.setContentType("text/html;charset=UTF-8");
 		ModelAndView view = new ModelAndView("plugin/lawfirm/newUnFlowFormData");
-		Map<String, Object> params = request.getParameterMap();
+		Map<String, String[]> params = request.getParameterMap();
 		Long contentAllId = ParamUtil.getLong(params, "contentAllId");
 		String rightId = ParamUtil.getString(params, "rightId");
 		Long viewId = ParamUtil.getLong(params, "viewId");
