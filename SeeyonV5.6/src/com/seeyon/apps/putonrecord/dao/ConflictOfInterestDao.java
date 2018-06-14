@@ -213,7 +213,7 @@ public class ConflictOfInterestDao {
 		}
 		return result;
 	}
-
+//查询所有对方当事人
 	public Map<String, Map<String, String>> getAllOther(List<Term> parse) {
 		Map<String, Map<String, String>> result = new HashMap();
 
@@ -226,11 +226,14 @@ public class ConflictOfInterestDao {
 		dhsql = dhsql + " order by n_zbid desc";
 		boolean dhflag = dbu.executeSql("", dhsql);
 		if (dhflag) {
+			//当出现多个同名人的时候需要对其进行拆分.此处通过增加后缀的方式来处理
+			//需要检测其中的这个名是否重复出现并进行标记
 			while (dbu.next()) {
 				if (dbu.getString("name") != null) {
 					Map<String, String> itemmap = new HashMap();
 					itemmap.put("id", dbu.getString("zbid"));
-					itemmap.put("zbls", getZBLSFromOldDB(dbu.getString("zbid")));
+					String zbls=getZBLSFromOldDB(dbu.getString("zbid"));
+					itemmap.put("zbls",zbls );
 					if ((dbu.getString("bgs") != null) && (dbu.getString("bgs").contains("德和衡"))) {
 						itemmap.put("ls", "德和衡");
 					} else {
@@ -241,7 +244,7 @@ public class ConflictOfInterestDao {
 					} else {
 						itemmap.put("latype", "现立案客户");
 					}
-					result.put(dbu.getString("name").trim(), itemmap);
+					result.put(dbu.getString("name").trim()+"#"+zbls, itemmap);
 				}
 			}
 		}
@@ -262,9 +265,11 @@ public class ConflictOfInterestDao {
 			ResultSet rs = dba.getQueryResult();
 			while (rs.next()) {
 				if (rs.getString("name") != null) {
-					Map<String, String> itemmap = new HashMap();
+					Map<String, String> itemmap = new HashMap<String, String>();
+					String zbls="";
 					if (this.getOrgMemberName(rs.getString("zbls")) != null) {
-						itemmap.put("zbls", this.getOrgMemberName(rs.getString("zbls")));
+						zbls=this.getOrgMemberName(rs.getString("zbls"));
+						itemmap.put("zbls", zbls);
 					} else {
 						itemmap.put("zbls", "");
 					}
@@ -274,7 +279,7 @@ public class ConflictOfInterestDao {
 					} else {
 						itemmap.put("ls", "德衡");
 					}
-					result.put(rs.getString("name").trim(), itemmap);
+					result.put(rs.getString("name").trim()+"#"+zbls, itemmap);
 				}
 			}
 		} catch (BusinessException e) {

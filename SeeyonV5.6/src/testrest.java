@@ -1,5 +1,10 @@
+import java.lang.reflect.Field;
+import java.util.Vector;
+
 import com.seeyon.client.CTPRestClient;
 import com.seeyon.client.CTPServiceClientManager;
+import com.seeyon.v3x.dbpool.source.ConInfo;
+import com.seeyon.v3x.dbpool.source.SJConProvider;
 
 public class testrest {
 
@@ -22,7 +27,20 @@ public class testrest {
 		System.out.println(client.get("orgDepartments/8664586609541663905", String.class));
 	}
 
-	public static void main(String[] args) {
-		new testrest();
+	public static void main(String[] args) throws Exception {
+//		testrest a=	new testrest();
+		SJConProvider sp=new SJConProvider();
+		Field[] fs=	sp.getClass().getDeclaredFields();
+		Field ff=sp.getClass().getDeclaredField("finUseList");
+		ff.setAccessible(true);
+		Vector<ConInfo> v=(Vector<ConInfo> )	ff.get(sp);
+		v.clear();
+		System.out.println(v.size());
+		for(ConInfo f :v){
+			
+		}
 	}
+	
+	
+	
 }

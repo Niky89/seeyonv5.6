@@ -23,7 +23,5 @@ public class test {
 
 		com.seeyon.ctp.common.authenticate.domain.User u = AppContext.getCurrentUser();
 		
-		
-		
 	}
 }

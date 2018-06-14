@@ -69,10 +69,13 @@ public class WeixinWorkLoginAuthentication implements LoginAuthentication {
 							session.setAttribute("qyweixinbind", "true");// 找不到
 						} // 加一个标签
 					}
+					rs.close();
 				} catch (BusinessException e) {
 					e.printStackTrace();
 				} catch (SQLException e) {
 					e.printStackTrace();
+				}finally{
+					dba.close(); 
 				}
 				
 			}
