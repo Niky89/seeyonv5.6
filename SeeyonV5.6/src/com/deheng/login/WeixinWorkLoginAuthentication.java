@@ -57,6 +57,8 @@ public class WeixinWorkLoginAuthentication implements LoginAuthentication {
 					ResultSet rs = dba.getQueryResult();
 					if (rs.next()) {// 能找到
 						Long id = rs.getLong("id");
+						rs.close();
+						dba.close(); 
 						V3xOrgMember v3xOrgmember = orgManager.getMemberById(id);// 根据当前用户的id获取当前用户的orgmember
 						if (session != null) {
 							session.removeAttribute("qyweixinbind");
@@ -69,13 +71,11 @@ public class WeixinWorkLoginAuthentication implements LoginAuthentication {
 							session.setAttribute("qyweixinbind", "true");// 找不到
 						} // 加一个标签
 					}
-					rs.close();
+					
 				} catch (BusinessException e) {
 					e.printStackTrace();
 				} catch (SQLException e) {
 					e.printStackTrace();
-				}finally{
-					dba.close(); 
 				}
 				
 			}

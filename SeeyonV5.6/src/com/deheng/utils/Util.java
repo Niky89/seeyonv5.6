@@ -76,6 +76,7 @@ public class Util {
 
 	public Properties getPorp(String fileName) {
 		Properties p = new Properties();
+		
 		InputStream is = Util.class.getResourceAsStream(fileName);
 		try {
 			p.load(is);
@@ -314,7 +315,7 @@ public class Util {
 
 			client.getHostConfiguration().setHost("qyapi.weixin.qq.com", 443, "https");
 			GetMethod get = new GetMethod(
-					"/cgi-bin/gettoken?corpid="+"wx119567e228b99787"+"&corpsecret="+secret);
+					"/cgi-bin/gettoken?corpid="+this.getProperty("corpid")+"&corpsecret="+secret);
 			try {
 				client.executeMethod(get);
 				String response = new String(get.getResponseBody());

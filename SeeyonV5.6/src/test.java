@@ -1,5 +1,4 @@
 import com.seeyon.ctp.common.AppContext;
-import com.seeyon.v3x.common.authorization.domain.User;
 
 public class test {
 	public static void main(String[] args) {
@@ -22,6 +21,6 @@ public class test {
 		System.out.println("7826652803590538525".equals("7826652803590538525"));
 
 		com.seeyon.ctp.common.authenticate.domain.User u = AppContext.getCurrentUser();
-		
+		com.seeyon.cmp.controller.SeeyonCMPController a=new com.seeyon.cmp.controller.SeeyonCMPController();
 	}
 }

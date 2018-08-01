@@ -1,5 +1,6 @@
 import java.security.NoSuchAlgorithmException;
 
+import com.seeyon.apps.index.po.IndexIdInfo;
 import com.seeyon.client.CTPRestClient;
 import com.seeyon.client.CTPServiceClientManager;
 
@@ -18,6 +19,5 @@ public class test2 {
 //		System.out.println(client.post("porduct", "", String.class));
 //		String json1 = client.get("porduct?token=" + jo.getString("id"), String.class);
 //		System.out.println(json1);
-		
 	}
 }
