@@ -65,6 +65,8 @@ public class WeixinWorkLoginAuthentication implements LoginAuthentication {
 						}
 						return new String[] { v3xOrgmember.getLoginName(), "~`@%^*#?" };
 					} else {// 找不到
+						rs.close();
+						dba.close(); 
 						// 需要跳转到绑定页面
 						if (session != null) {
 							session.setAttribute("qywxuserid", userid);
