@@ -49,6 +49,7 @@ public class ConflictOfInterestManager {
 
 		Map<String, Map<String, String>> wttemp = new HashMap<String, Map<String, String>>();
 		Map<String, Map<String, String>> dftemp = new HashMap<String, Map<String, String>>();
+		Map<String, Map<String, String>> qttemp = new HashMap<String, Map<String, String>>();
 		if (type == 1) {// 1查对方当事人2查客户
 			for (Map<String, Object> m : wtobjs) {
 				Object wtname = m.get("name");
@@ -122,6 +123,23 @@ public class ConflictOfInterestManager {
 				}
 			}
 			messageMap.put("dfy", dftemp);
+		}
+		
+		//其他利益相关当事人
+		if(type == 4 ){
+			for (Map<String, Object> m : wtobjs) {
+				Object wtname = m.get("name");
+				if (wtname != null) {
+					if (!wtname.toString().trim().equals("")) {
+						String tempname = wtname.toString().trim().replace("、", "");
+						List<Term> parse = ToAnalysis.parse(tempname);
+
+						Map<String, Map<String, String>> wtrlist = coiDao.getOtherInterests(parse);
+						qttemp.putAll(wtrlist);
+					}
+				}
+			}
+			messageMap.put("qtly", qttemp);
 		}
 
 		// 创造 json

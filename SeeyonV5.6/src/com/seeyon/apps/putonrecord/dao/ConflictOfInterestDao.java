@@ -48,7 +48,7 @@ public class ConflictOfInterestDao {
 			return result;
 		}
 		JDBCAgent dba = new JDBCAgent();
-		String sysql = "select top 20 ID,field0005 as name from formmain_0032 where field0005 like '%" + Util.checkSqlString(param) + "%'";
+		String sysql = "select top 20 ID,field0007 as name from formmain_0032 where field0007 like '%" + Util.checkSqlString(param) + "%'";
 		try {
 			dba.execute(sysql);
 			ResultSet rs = dba.getQueryResult();
@@ -104,9 +104,9 @@ public class ConflictOfInterestDao {
 		}
 		JDBCAgent dba = new JDBCAgent();
 
-		String sysql = "select t.showvalue as showvalue,a.id,a.field0001 as ls,field0005 as name,a.field0006 as zbls from formmain_0226 a left join ctp_enum_item t on a.field0013=t.id where 1=1 ";
+		String sysql = "select t.showvalue as showvalue,a.id,a.field0001 as ls,field0007 as name,a.field0006 as zbls from formmain_0226 a left join ctp_enum_item t on a.field0013=t.id where 1=1 ";
 		for (Term t : parse) {
-			sysql = sysql + " and a.field0005 like '%" + Util.checkSqlString(t.getName()) + "%'";
+			sysql = sysql + " and a.field0007 like '%" + Util.checkSqlString(t.getName()) + "%'";
 		}
 		sysql = sysql + " order by id desc";
 		try {
@@ -175,9 +175,9 @@ public class ConflictOfInterestDao {
 		}
 		JDBCAgent dba = new JDBCAgent();
 
-		String sysql = "select t.showvalue,a.id,a.field0001 as ls,field0005 as name,a.field0006 as zbls,a.start_date as latime from formmain_0226 a left join ctp_enum_item t on a.field0013=t.id where  1=1  ";
+		String sysql = "select t.showvalue,a.id,a.field0001 as ls,field0007 as name,a.field0006 as zbls,a.start_date as latime from formmain_0226 a left join ctp_enum_item t on a.field0013=t.id where  1=1  ";
 		for (Term t : parse) {
-			sysql = sysql + " and a.field0005 like '%" + Util.checkSqlString(t.getName()) + "%'";
+			sysql = sysql + " and a.field0007 like '%" + Util.checkSqlString(t.getName()) + "%'";
 		}
 		sysql = sysql + " order by id desc";
 		try {
@@ -274,6 +274,46 @@ public class ConflictOfInterestDao {
 						itemmap.put("zbls", "");
 					}
 					itemmap.put("latype", "");
+					if ((rs.getString("ls") != null) && (rs.getString("ls").contains("DHH"))) {
+						itemmap.put("ls", "德和衡");
+					} else {
+						itemmap.put("ls", "德衡");
+					}
+					result.put(rs.getString("name").trim()+"#"+zbls, itemmap);
+				}
+			}
+		} catch (BusinessException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	//查询其他利益相关当事人 其他利益相关当事人应该为委托人的利益相关方
+	public Map<String, Map<String, String>> getOtherInterests(List<Term> parse) {
+		Map<String, Map<String, String>> result = new HashMap();
+		JDBCAgent dba = new JDBCAgent();
+
+		String sysql = "select a.field0002 as ls,b.field0112 as name, a.field0004 as zbls,b.field0113 as bz  from formmain_0420 a left join  dbo.formson_4276 b on a.id=b.formmain_id where 1=1 ";
+
+		for (Term t : parse) {
+			sysql = sysql + " and field0112 like '%" + Util.checkSqlString(t.getName()) + "%'";
+		}
+		try {
+			dba.execute(sysql);
+			ResultSet rs = dba.getQueryResult();
+			while (rs.next()) {
+				if (rs.getString("name") != null) {
+					Map<String, String> itemmap = new HashMap<String, String>();
+					String zbls="";
+					if (this.getOrgMemberName(rs.getString("zbls")) != null) {
+						zbls=this.getOrgMemberName(rs.getString("zbls"));
+						itemmap.put("zbls", zbls);
+					} else {
+						itemmap.put("zbls", "");
+					}
+					itemmap.put("bz", rs.getString("bz"));
 					if ((rs.getString("ls") != null) && (rs.getString("ls").contains("DHH"))) {
 						itemmap.put("ls", "德和衡");
 					} else {

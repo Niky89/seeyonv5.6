@@ -141,7 +141,10 @@ input {
 			<table width="1300" id="dftable2" border="1" cellspacing="0"
 				bordercolor="#000000"
 				style="border-collapse: collapse; margin: auto;" width="850px"></table>
-
+			<br> <br> <br>
+			<table width="1300" id="dftable3" border="1" cellspacing="0"
+				bordercolor="#000000"
+				style="border-collapse: collapse; margin: auto;" width="850px"></table>
 		</div>
 		<br />
 		<div style="margin: auto; width: 60%">
@@ -289,7 +292,7 @@ input {
 															tr += "<tr><td>&nbsp;&nbsp;"
 																	+ value["ls"]
 																	+ "</td><td>&nbsp;&nbsp;"
-																	+ name
+																	+ name.split("#")[0]
 																	+ "</td><td>&nbsp;&nbsp;"
 																	+ value["zbls"]
 																	+ "</td></tr>";
@@ -422,6 +425,64 @@ input {
 												.html(
 														"<tr><td style='text-align:center;'>预立案对方当事人没有冲突</td></tr>");
 										$("#dftable2").attr("border", "0");
+									}
+									if (isok) {
+										$("#message0").html("");
+									}
+									$("#mycheck").removeAttr("disabled");
+									$("#nextstep").removeAttr("disabled");
+									$("#message2").css("display", "inline");
+									$("#ma").css("color", "#C0C0C0");
+									isok = true;
+								}
+							});
+			//增加的ajax查询其他利益相关当事人
+
+
+			coim
+					.checkConflictOfInterest(
+							wtcount,
+							wtma,
+							dfcount,
+							dfma,
+							4,
+							{
+								success : function(data) {
+
+									//解析json生成table 放到message中去
+									var jsonobj = eval("(" + data + ")");
+									var dfmessagey = jsonobj["qtly"];
+									//$("#message1").html(dfmessage==undefined?"11":dfmessage);
+									var tr2 = '<tr><td border=0 colspan="5"><font size="5" id="message2" style="display: none;">&nbsp;&nbsp;其他利益相关当事人:</font> </td></tr>'
+											+ "<tr style='background-color: #3882d0;'><td>&nbsp;&nbsp;<b>单位类型</b></td><td>&nbsp;&nbsp;<b>名称</b></td><td>&nbsp;&nbsp;<b>主办律师</b></td><td>&nbsp;&nbsp;<b>相关说明</b></td></tr>";
+									var add2 = false;
+									if (dfmessagey != undefined) {
+
+										$
+												.each(
+														dfmessagey,
+														function(name, value) {
+															add2 = true;
+															tr2 += "<tr><td>&nbsp;&nbsp;"
+																	+ value["ls"]
+																	+ "</td><td>&nbsp;&nbsp;"
+																	+ name.split("#")[0]
+																	+ "</td><td>&nbsp;&nbsp;"
+																	+ value["zbls"]
+																	+ "</td><td>&nbsp;&nbsp;"
+																	+ value["bz"]
+																	+ "</td></tr>";
+														});
+									}
+									if (add2) {
+										$("#dftable3").html(tr2);
+										$("#dftable3").attr("border", "1");
+										add2 = false;
+									} else {
+										$("#dftable3")
+												.html(
+														"<tr><td style='text-align:center;'>其他利益相关当事人没有冲突</td></tr>");
+										$("#dftable3").attr("border", "0");
 									}
 									if (isok) {
 										$("#message0").html("");

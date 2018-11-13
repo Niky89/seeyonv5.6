@@ -1,3 +1,6 @@
+import java.util.Calendar;
+import java.util.Date;
+
 import com.seeyon.ctp.common.AppContext;
 
 public class test {
@@ -21,6 +24,13 @@ public class test {
 		System.out.println("7826652803590538525".equals("7826652803590538525"));
 
 		com.seeyon.ctp.common.authenticate.domain.User u = AppContext.getCurrentUser();
-		com.seeyon.cmp.controller.SeeyonCMPController a=new com.seeyon.cmp.controller.SeeyonCMPController();
+		com.seeyon.cmp.controller.SeeyonCMPController a = new com.seeyon.cmp.controller.SeeyonCMPController();
+		System.out.println((int) '聙');
+
+		long systime = Calendar.getInstance().getTimeInMillis();
+		long dead =9999999999999l + systime;
+		Date d=new Date(dead);
+		System.out.println(d);
+		System.out.println(dead);
 	}
 }

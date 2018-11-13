@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
- 请使用微信访问
+ 请先确认是否绑定内网,若未绑定请绑定后再试,若已绑定后依然无法使用请联系集团信息中心!
 </body>
 </html>

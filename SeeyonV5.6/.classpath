@@ -291,5 +291,7 @@
 	<classpathentry kind="lib" path="D:/Seeyon/A8/ApacheJetspeed/lib/tomcat-util-scan.jar"/>
 	<classpathentry kind="lib" path="D:/Seeyon/A8/ApacheJetspeed/lib/tomcat-websocket.jar"/>
 	<classpathentry kind="lib" path="D:/Seeyon/A8/ApacheJetspeed/lib/websocket-api.jar"/>
+	<classpathentry kind="lib" path="lib/fr-third-7.0.jar"/>
+	<classpathentry kind="lib" path="lib/fr-server-7.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
