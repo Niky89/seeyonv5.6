@@ -313,7 +313,6 @@ public class MainbodyManagerImpl implements MainbodyManager
                                 rightIdStr2 = String.valueOf(this.formCacheManager.getNewOperationId(formId, Long.parseLong(rightIdStr2)));
                                 Long rs=Long.parseLong(rightIdStr2);
                                 FormAuthViewBean favb=formBean.getAuthViewBeanById(rs);
-                                System.out.println(favb);
                                 viewId = favb.getFormViewId();
                             }
                         }

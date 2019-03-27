@@ -70,7 +70,7 @@ public class ConflictOfInterestDao {
 		}
 		return result;
 	}
-
+//查询客户
 	public Map<String, Map<String, String>> getALlPri(List<Term> parse) {
 		Map<String, Map<String, String>> result = new HashMap();
 
@@ -103,7 +103,9 @@ public class ConflictOfInterestDao {
 			}
 		}
 		JDBCAgent dba = new JDBCAgent();
-
+		
+		//经检查客户状态无影响
+		
 		String sysql = "select t.showvalue as showvalue,a.id,a.field0001 as ls,field0007 as name,a.field0006 as zbls from formmain_0226 a left join ctp_enum_item t on a.field0013=t.id where 1=1 ";
 		for (Term t : parse) {
 			sysql = sysql + " and a.field0007 like '%" + Util.checkSqlString(t.getName()) + "%'";
@@ -250,12 +252,12 @@ public class ConflictOfInterestDao {
 		}
 		JDBCAgent dba = new JDBCAgent();
 
-		String sysql1 = "select field0001 as ls,field0041 as name,field0003 as orgid from formmain_0263 a left join formson_0265 b on a.id=b.formmain_id";
-		String sysql2 = "select field0001 as ls,field0038 as name,field0003 as orgid from formmain_0279 a left join formson_0281 b on a.id=b.formmain_id";
-		String sysql3 = "select field0001 as ls,field0046 as name,field0003 as orgid from formmain_0294 a left join formson_0296 b on a.id=b.formmain_id";
+		String sysql1 = "select state,finishedflag, field0001 as ls,field0041 as name,field0003 as orgid from formmain_0263 a left join formson_0265 b on a.id=b.formmain_id";
+		String sysql2 = "select state,finishedflag, field0001 as ls,field0038 as name,field0003 as orgid from formmain_0279 a left join formson_0281 b on a.id=b.formmain_id";
+		String sysql3 = "select state,finishedflag,field0001 as ls,field0046 as name,field0003 as orgid from formmain_0294 a left join formson_0296 b on a.id=b.formmain_id";
 
 		String uni = " union ";
-		String sysql = "select ls,name,a.orgid as zbls from (" + sysql1 + uni + sysql2 + uni + sysql3 + ") a where 1=1 ";
+		String sysql = "select state,finishedflag, ls,name,a.orgid as zbls from (" + sysql1 + uni + sysql2 + uni + sysql3 + ") a where  finishedflag<>3  and state<>0 and state<>-2 ";//此处需要对 流程表单中的
 
 		for (Term t : parse) {
 			sysql = sysql + " and name like '%" + Util.checkSqlString(t.getName()) + "%'";

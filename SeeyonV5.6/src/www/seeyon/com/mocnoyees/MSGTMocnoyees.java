@@ -87,7 +87,7 @@ public class MSGTMocnoyees extends LinkedHashMap implements Serializable {
 			} else if (localObject2.toString().equals("AG")) {
 				put(localObject2, "1000");
 			} else if (localObject2.toString().equals("AE")) {
-				put(localObject2, "V6.1");
+				put(localObject2, "V7.0");
 			} else if (localObject2.toString().equals("AH")) {
 				put(localObject2, "1");
 			} else if (localObject2.toString().equals("AC")) {
